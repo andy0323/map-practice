@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "JXMapManager.h"
+#import "JXViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,7 +19,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    [JXMapManager shareInstance];
+    
     // Override point for customization after application launch.
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[JXViewController new]];
+    self.window.rootViewController = nav;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
