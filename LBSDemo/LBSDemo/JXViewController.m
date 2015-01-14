@@ -9,23 +9,39 @@
 #import "JXViewController.h"
 #import "JXMapManager.h"
 
-@interface JXViewController ()<MAMapViewDelegate>
-{
-    MAMapView *_mapView;
-}
+@interface JXViewController ()<MAMapViewDelegate, AMapSearchDelegate>
+@property (nonatomic, strong) MAMapView *mapView;
+@property (nonatomic, strong) AMapSearchAPI *search;
 @end
 
 @implementation JXViewController
 
 #pragma mark -
 #pragma mark 生命周期函数
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     _mapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
+    _mapView.showsUserLocation = YES;
     _mapView.delegate = self;
     [self.view addSubview:_mapView];
+
 }
 
+#pragma mark -
+#pragma mark 地图定位回调
+
+- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation
+updatingLocation:(BOOL)updatingLocation
+{
+    if(updatingLocation)
+    {
+        //取出当前位置的坐标
+        NSLog(@"latitude : %f,longitude: %f",
+              userLocation.coordinate.latitude,
+              userLocation.coordinate.longitude);
+    }
+}
 @end
