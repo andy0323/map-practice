@@ -23,10 +23,19 @@
 {
     [super viewDidLoad];
 
+    self.search.delegate = self;
+
     _mapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
-    _mapView.showsUserLocation = YES;
     _mapView.delegate = self;
     [self.view addSubview:_mapView];
+    
+    
+    // 显示用户位置、开启实时定位
+    _mapView.showsUserLocation = YES;
+    
+    //地图跟着位置移动
+    [_mapView setUserTrackingMode: MAUserTrackingModeFollow
+                         animated:YES];
 
 }
 
